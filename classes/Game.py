@@ -12,6 +12,7 @@ class Game:
         self.current_player = 0
         self.firstplayerdeck = 0
         self.hands = []
+        self.information = []
         self.seasondeck = f.load_seasons()
         self.s_ref = f.load_season_ref()
         self.season = None
@@ -119,6 +120,20 @@ class Game:
             return 3
         else:
             return 0
+    
+
+
+class SimulGame():
+    def __init__(self, game, parent, had_played):
+        self.game = game
+        self.parent = parent
+        self.children = []
+        self.had_played = had_played
+        self.visits = 0
+        self.win = 0
+
+    def discretize(self):
+        pass
         
         
 
