@@ -9,10 +9,11 @@ class Game:
         self.turn = 1
         self.results = []
         self.order = []
+        self.mcts = []
+        self.played_cards = []
         self.current_player = 0
         self.firstplayerdeck = 0
         self.hands = []
-        self.information = []
         self.seasondeck = f.load_seasons()
         self.s_ref = f.load_season_ref()
         self.season = None
@@ -29,11 +30,14 @@ class Game:
                     new_player = player.AIminmax(i, "AI")
                 elif player_ents[i]=='AI snadné':
                     new_player = player.AIgamble(i, "AI")
+                elif player_ents[i]=='AI těžké':
+                    new_player = player.AIMCTS(i, "AI", len(player_ents))
+                    self.mcts.append(i)
                 else:
                     new_player = player.AIstupid(i, "AI")
                 for j in range(2):
                     dk_card = random.sample(range(len(DK_deck.cards)), 1)[0]
-                    DK_deck.play_card(dk_card, new_player)
+                    DK_deck.play_card(dk_card, new_player, self)
                 self.players.append(new_player)
         self.current_deck = (self.current_player+self.firstplayerdeck)%len(self.players)
         
@@ -120,20 +124,6 @@ class Game:
             return 3
         else:
             return 0
-    
-
-
-class SimulGame():
-    def __init__(self, game, parent, had_played):
-        self.game = game
-        self.parent = parent
-        self.children = []
-        self.had_played = had_played
-        self.visits = 0
-        self.win = 0
-
-    def discretize(self):
-        pass
         
         
 

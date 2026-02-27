@@ -4,6 +4,7 @@ class Card:
     def __init__(self, id, name):
         self.id = id
         self.name = name
+        self.status = [-1] *5
     def play(self, person):
         print("Played" + str(self.name))
     def isplayable(self, person):
@@ -133,6 +134,7 @@ class EventCard(Card):
         func(person)
         if 'event' in person.buffs:
             person.money += 1
+        person.for_scoring.cards.append(self)
     def evaluate(self, person):
         func = f.ACTIONS[self.action]
         return func(person, "eval")
@@ -153,4 +155,4 @@ class PlayedMonster:
         self.name = name
         self.besneni = besneni
         self.points = points
-    
+   
